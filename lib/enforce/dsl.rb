@@ -2,6 +2,7 @@ module Enforce
   class DSL
     def file(name, with: nil, without: nil)
       pass = File.exist?(name)
+
       add_result message: "File '#{name}' should exist", pass: pass
       
       if pass and with
@@ -10,7 +11,7 @@ module Enforce
       end
 
       if pass and without
-        add_result message: "File '#{name}' should not contain '#{with}'", 
+        add_result message: "File '#{name}' should not contain '#{without}'", 
           pass: !File.read(name).include?(without)
       end
     end
@@ -39,7 +40,7 @@ module Enforce
 
     def add_result(result)
       results.push result unless results.include? result
-      handle result if respond_to? :handle
+      handle result
     end
 
     def passed_results
@@ -48,6 +49,10 @@ module Enforce
 
     def failed_results
       results.reject { |result| result[:pass] }
+    end
+
+    def handle
+      raise "handle is not implemented"
     end
   end
 end

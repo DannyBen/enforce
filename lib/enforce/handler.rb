@@ -6,8 +6,8 @@ module Enforce
     include Singleton
     include Colsole
 
-    def execute(argv)
-      eval File.read 'dev/sample.rb'
+    def execute(file)
+      eval File.read file
       color = failed? ? "!txtred!" : "!txtgrn!"
       say "#{color}#{results.count} rules, #{failed} failures"
     end

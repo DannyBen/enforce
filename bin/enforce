@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'enforce'
-handler = Enforce::Handler.instance
-handler.execute ARGV
-exit 1 if handler.failed?
+exitcode = Enforce::CommandLine.instance.execute ARGV
+exit exitcode
 
