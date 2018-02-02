@@ -13,16 +13,6 @@ module Enforce
       yield if block_given?
     end
 
-    def with(string)
-      add_result message: "File '#{last_file}' should contain '#{string}'", 
-        pass: File.read(last_file).include?(string)
-    end
-
-    def without(string)
-      add_result message: "File '#{last_file}' should not contain '#{string}'", 
-        pass: !File.read(last_file).include?(string)
-    end
-
     def no_file(name)
       add_result message: "File '#{name}' should not exist", 
         pass: !File.exist?(name)
@@ -39,15 +29,21 @@ module Enforce
       end
     end
 
-    protected
+    def with(string)
+      add_result message: "File '#{last_file}' should contain '#{string}'", 
+        pass: File.read(last_file).include?(string)
+    end
 
-    def handled_files
-      @handled_files ||= []
+    def without(string)
+      add_result message: "File '#{last_file}' should not contain '#{string}'", 
+        pass: !File.read(last_file).include?(string)
     end
 
     def results
       @results ||= []
     end
+
+    protected
 
     def add_result(result)
       results.push result unless results.include? result
@@ -62,8 +58,8 @@ module Enforce
       results.reject { |result| result[:pass] }
     end
 
-    def handle
-      raise "#handle is not implemented"
+    def handle(result)
+      # Do nothing, should be overridden
     end
   end
 end

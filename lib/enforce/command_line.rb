@@ -30,7 +30,7 @@ module Enforce
     end
 
     def handler
-      Enforce::Handler.instance
+      @handler ||= Enforce::Handler.new
     end
 
     def show_usage

@@ -1,4 +1,5 @@
 require 'enforce/version'
+require 'enforce/colors'
 require 'enforce/dsl'
 require 'enforce/handler'
 require 'enforce/command_line'

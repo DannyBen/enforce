@@ -1,14 +1,12 @@
 require 'singleton'
-require 'colsole'
 
 module Enforce
   class Handler < DSL
-    include Singleton
-    include Colsole
+    include Colors
 
     def execute(file)
       eval File.read file
-      color = failed? ? "!txtred!" : "!txtgrn!"
+      color = failed? ? "%{red}" : "%{green}"
       say "#{color}#{results.count} rules, #{failed} failures"
     end
 
@@ -21,7 +19,7 @@ module Enforce
     end
 
     def handle(message:, pass:)
-      status = pass ? "!txtgrn!PASS!txtrst!" : "!txtred!FAIL!txtrst!"
+      status = pass ? "%{green}PASS%{reset}" : "%{red}FAIL%{reset}"
       say "#{status} #{message}"
     end
   end
