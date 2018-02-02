@@ -1,5 +1,5 @@
 module Enforce
-  module DSL
+  class DSL
     def file(name, with: nil, without: nil)
       pass = File.exist?(name)
       add_result message: "File '#{name}' should exist", pass: pass
@@ -31,13 +31,23 @@ module Enforce
       end
     end
 
+    protected
+
     def results
       @results ||= []
     end
 
     def add_result(result)
       results.push result unless results.include? result
-      on_result result if respond_to? :on_result
+      handle result if respond_to? :handle
+    end
+
+    def passed_results
+      results.select { |result| result[:pass] }
+    end
+
+    def failed_results
+      results.reject { |result| result[:pass] }
     end
   end
 end

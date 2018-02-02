@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'enforce'
-include Enforce::ScreenHandler
-Enforce::Runner.instance.execute ARGV
+handler = Enforce::Handler.instance
+handler.execute ARGV
+exit 1 if handler.failed?
+
