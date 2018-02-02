@@ -1,0 +1,14 @@
+require "runfile-tasks"
+require 'fileutils'
+
+title   "Enforce Developer Toolbelt"
+summary "Runfile tasks for building the Enforce gem"
+version Enforce::VERSION
+
+RunfileTasks::RubyGems.all 'enforce'
+RunfileTasks::Testing.rspec
+
+help   "Run IRB console with context"
+action :console, :c do
+  run! "bin/console"
+end

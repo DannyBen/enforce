@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'enforce'
+include Enforce::ScreenHandler
+Enforce::Runner.instance.execute ARGV
