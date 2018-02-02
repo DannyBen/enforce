@@ -1,29 +1,26 @@
 module Enforce
   class DSL
-    def file(name, with: nil, without: nil)
+    attr_reader :last_file
+
+    def file(name)
       pass = File.exist?(name)
+      @last_file = name
 
       add_result message: "File '#{name}' should exist", pass: pass
+
+      return unless pass
       
-      if pass and with
-        add_result message: "File '#{name}' should contain '#{with}'", 
-          pass: File.read(name).include?(with)
-      end
+      yield if block_given?
+    end
 
-      if pass and without
-        add_result message: "File '#{name}' should not contain '#{without}'", 
-          pass: !File.read(name).include?(without)
-      end
-
-      if block_given?
-        @file = name
-        yield
-      end
+    def with(string)
+      add_result message: "File '#{last_file}' should contain '#{string}'", 
+        pass: File.read(last_file).include?(string)
     end
 
     def without(string)
-      add_result message: "File '#{@file}' should not contain '#{string}'", 
-        pass: !File.read(@file).include?(string)
+      add_result message: "File '#{last_file}' should not contain '#{string}'", 
+        pass: !File.read(last_file).include?(string)
     end
 
     def no_file(name)
@@ -44,6 +41,10 @@ module Enforce
 
     protected
 
+    def handled_files
+      @handled_files ||= []
+    end
+
     def results
       @results ||= []
     end
@@ -62,7 +63,7 @@ module Enforce
     end
 
     def handle
-      raise "handle is not implemented"
+      raise "#handle is not implemented"
     end
   end
 end
