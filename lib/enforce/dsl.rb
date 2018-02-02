@@ -14,6 +14,16 @@ module Enforce
         add_result message: "File '#{name}' should not contain '#{without}'", 
           pass: !File.read(name).include?(without)
       end
+
+      if block_given?
+        @file = name
+        yield
+      end
+    end
+
+    def without(string)
+      add_result message: "File '#{@file}' should not contain '#{string}'", 
+        pass: !File.read(@file).include?(string)
     end
 
     def no_file(name)
