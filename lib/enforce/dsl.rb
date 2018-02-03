@@ -28,26 +28,39 @@ module Enforce
       end
     end
 
-    def with(content)
-      content_as_string = content.is_a?(String) ? content : content.inspect
-      add_result message: "with `#{content_as_string}`", 
-        pass: File.read(last_file).match?(content)
+    def no_folder(name)
+      pass = !Dir.exist?(name)
+      add_result message: "no folder `#{name}`", pass: pass
     end
 
-    def without(content)
-      content_as_string = content.is_a?(String) ? content : content.inspect
-      add_result message: "without `#{content_as_string}`", 
-        pass: !File.read(last_file).match?(content)
+    def text(content)
+      pass = File.read(last_file).include?(content)
+      add_result message: "text `#{content}`", pass: pass
     end
 
-    def with_line(content)
-      add_result message: "with line `#{content}`", 
-        pass: File.readlines(last_file).map(&:strip).include?(content)
+    def no_text(content)
+      pass = !File.read(last_file).include?(content)
+      add_result message: "no_text `#{content}`", pass: pass
     end
 
-    def without_line(content)
-      add_result message: "without line `#{content}`", 
-        pass: !File.readlines(last_file).map(&:strip).include?(content)
+    def regex(content)
+      pass = File.read(last_file).match?(content)
+      add_result message: "regex `#{content.inspect}`", pass: pass
+    end
+
+    def no_regex(content)
+      pass = !File.read(last_file).match?(content)
+      add_result message: "no_regex `#{content.inspect}`", pass: pass
+    end
+
+    def line(content)
+      pass = File.readlines(last_file).map(&:strip).include?(content)
+      add_result message: "line `#{content}`", pass: pass
+    end
+
+    def no_line(content)
+      pass = !File.readlines(last_file).map(&:strip).include?(content)
+      add_result message: "no line `#{content}`", pass: pass
     end
 
     def results

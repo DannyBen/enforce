@@ -29,7 +29,7 @@ gem 'enforce'
 Example
 --------------------------------------------------
 
-[![asciicast](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm.png)](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm)
+[![asciicast](https://asciinema.org/a/bGvwdnrAzrUeHeGvY4UYfIdFZ.png)](https://asciinema.org/a/bGvwdnrAzrUeHeGvY4UYfIdFZ)
 
 Also see the [example folder](/example).
 
@@ -62,11 +62,14 @@ Verify that a file exists, and has (or doesn't have) some content:
 
 ```ruby
 file 'filename' do
-  with 'any content'
-  with /any.regex/
-  without 'other content or regex'
-  with_line 'line to match, leading and trailing spaces are ignored'
-  without_line 'line to make sure is not in the file'
+  text 'any content'
+  no_text 'other content or regex'
+
+  regex /any.regex/
+  no_regex /any.regex/
+
+  line 'line to match, leading and trailing spaces are ignored'
+  no_line 'line to make sure is not in the file'
 end
 ```
 
@@ -83,6 +86,12 @@ Verify that a folder exists:
 
 ```ruby
 folder 'dirname'
+```
+
+Verify that a folder does not exist:
+
+```ruby
+no_folder 'dirname'
 ```
 
 Verify that a folder exists, and run additional validations inside it:

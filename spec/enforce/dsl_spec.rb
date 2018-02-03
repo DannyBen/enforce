@@ -5,7 +5,7 @@ describe DSL do
     context "when file exists" do
       it "creates a passing result" do
         subject.file 'Gemfile'
-        expect(subject.results.last.to_s).to match_fixture :dsl_file_1
+        expect(subject.results.last[:pass]).to be true
       end
 
       context "when a block is given" do
@@ -20,7 +20,7 @@ describe DSL do
     context "when file does not exist" do
       it "creates a failing result" do
         subject.file 'NoSuchFile'
-        expect(subject.results.last.to_s).to match_fixture :dsl_file_2
+        expect(subject.results.last[:pass]).to be false
       end
     end
   end
@@ -29,14 +29,14 @@ describe DSL do
     context "when file exists" do
       it "creates a failing result" do
         subject.no_file 'Gemfile'
-        expect(subject.results.last.to_s).to match_fixture :dsl_no_file_1
+        expect(subject.results.last[:pass]).to be false
       end
     end
 
     context "when file does not exist" do
       it "creates a passing result" do
         subject.no_file 'NoSuchFile'
-        expect(subject.results.last.to_s).to match_fixture :dsl_no_file_2
+        expect(subject.results.last[:pass]).to be true
       end
     end
   end
@@ -45,7 +45,7 @@ describe DSL do
     context "when folder exists" do
       it "creates a passing result" do
         subject.folder 'spec'
-        expect(subject.results.last.to_s).to match_fixture :dsl_folder
+        expect(subject.results.last[:pass]).to be true
       end
 
       context "when a block is given" do
@@ -62,128 +62,146 @@ describe DSL do
     context "when folder does not exist" do
       it "creates a failing result" do
         subject.folder 'NoSuchFolder'
-        expect(subject.results.last.to_s).to match_fixture :dsl_folder_2
+        expect(subject.results.last[:pass]).to be false
       end
     end    
   end
 
-  describe '#with' do
+  describe '#no_folder', :focus do
+    context "when folder exists" do
+      it "creates a failing result" do
+        subject.no_folder 'spec'
+        expect(subject.results.last[:pass]).to be false
+      end
+    end
+
+    context "when folder does not exist" do
+      it "creates a passing result" do
+        subject.no_folder 'NoSuchFolder'
+        expect(subject.results.last[:pass]).to be true
+      end
+    end    
+  end
+
+  describe '#text' do
     before do
       subject.file 'Gemfile'
     end
 
-    context "with a string argument" do
-      context "when the file includes the string" do
-        it "creates a passing result" do
-          subject.with 'gemspec'
-          expect(subject.results.last.to_s).to match_fixture :dsl_with_1
-        end
-      end
-
-      context "when the file does not include the string" do
-        it "creates a failing result" do
-          subject.with 'NoSuchText'
-          expect(subject.results.last.to_s).to match_fixture :dsl_with_2
-        end
+    context "when the file includes the string" do
+      it "creates a passing result" do
+        subject.text 'gemspec'
+        expect(subject.results.last[:pass]).to be true
       end
     end
 
-    context "with a regex argument" do
-      context "when the file includes the pattern" do
-        it "creates a passing result" do
-          subject.with(/^gem.pec$/)
-          expect(subject.results.last.to_s).to match_fixture :dsl_with_3
-        end
-      end
-
-      context "when the file does not include the pattern" do
-        it "creates a failing result" do
-          subject.with(/..gemspec../)
-          expect(subject.results.last.to_s).to match_fixture :dsl_with_4
-        end
+    context "when the file does not include the string" do
+      it "creates a failing result" do
+        subject.text 'NoSuchText'
+        expect(subject.results.last[:pass]).to be false
       end
     end
   end
 
-  describe '#without' do
+  describe '#no_text' do
     before do
       subject.file 'Gemfile'
     end
 
-    context "with a string argument" do
-
-      context "when the file includes the content" do
-        it "creates a failing result" do
-          subject.without 'gemspec'
-          expect(subject.results.last.to_s).to match_fixture :dsl_without_1
-        end
-      end
-
-      context "when the file does not include the content" do
-        it "creates a passing result" do
-          subject.without 'NoSuchText'
-          expect(subject.results.last.to_s).to match_fixture :dsl_without_2
-        end
+    context "when the file includes the content" do
+      it "creates a failing result" do
+        subject.no_text 'gemspec'
+        expect(subject.results.last[:pass]).to be false
       end
     end
 
-    context "with a regex argument" do
-      context "when the file includes the pattern" do
-        it "creates a failing result" do
-          subject.without(/^gem.pec$/)
-          expect(subject.results.last.to_s).to match_fixture :dsl_without_3
-        end
-      end
-
-      context "when the file does not include the pattern" do
-        it "creates a passing result" do
-          subject.without(/..gemspec../)
-          expect(subject.results.last.to_s).to match_fixture :dsl_without_4
-        end
+    context "when the file does not include the content" do
+      it "creates a passing result" do
+        subject.no_text 'NoSuchText'
+        expect(subject.results.last[:pass]).to be true
       end
     end
   end
 
-  describe '#with_line' do
+  describe "#regex" do
+    before do
+      subject.file 'Gemfile'
+    end
+
+    context "when the file includes the pattern", :focus do
+      it "creates a passing result" do
+        subject.regex(/^gem.pec$/)
+        expect(subject.results.last[:pass]).to be true
+      end
+    end
+
+    context "when the file does not include the pattern" do
+      it "creates a failing result" do
+        subject.regex(/..gemspec../)
+        expect(subject.results.last[:pass]).to be false
+      end
+    end
+  end
+
+  describe '#no_regex' do
+    before do
+      subject.file 'Gemfile'
+    end
+    
+    context "when the file includes the pattern" do
+      it "creates a failing result" do
+        subject.no_regex(/^gem.pec$/)
+        expect(subject.results.last[:pass]).to be false
+      end
+    end
+
+    context "when the file does not include the pattern" do
+      it "creates a passing result" do
+        subject.no_regex(/..gemspec../)
+        expect(subject.results.last[:pass]).to be true
+      end
+    end
+  end
+
+  describe '#line' do
     before do
       subject.file 'Gemfile'
     end
 
     context "when the file includes the line" do
       it "creates a passing result" do
-        subject.with_line 'source "https://rubygems.org"'
-        expect(subject.results.last.to_s).to match_fixture :dsl_with_line_1
+        subject.line 'source "https://rubygems.org"'
+        expect(subject.results.last[:pass]).to be true
       end
     end
 
     context "when the file does not include the line" do
       it "creates a failing result" do
-        subject.with_line 'https://rubygems.org'
-        expect(subject.results.last.to_s).to match_fixture :dsl_with_line_2
+        subject.line 'https://rubygems.org'
+        expect(subject.results.last[:pass]).to be false
       end
     end
   end
 
-  describe '#without_line' do
+  describe '#no_line' do
     before do
       subject.file 'Gemfile'
     end
 
     context "when the file includes the line" do
       it "creates a failing result" do
-        subject.without_line 'source "https://rubygems.org"'
-        expect(subject.results.last.to_s).to match_fixture :dsl_without_line_1
+        subject.no_line 'source "https://rubygems.org"'
+        expect(subject.results.last[:pass]).to be false
       end
     end
 
     context "when the file does not include the line" do
       it "creates a passing result" do
-        subject.without_line 'https://rubygems.org'
-        expect(subject.results.last.to_s).to match_fixture :dsl_without_line_2
+        subject.no_line 'https://rubygems.org'
+        expect(subject.results.last[:pass]).to be true
       end
     end
   end
-
 
   describe '#passed_results' do
     before do
