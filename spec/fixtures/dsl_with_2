@@ -1,1 +1,1 @@
-{:message=>"File `Gemfile` should contain `NoSuchText`", :pass=>false}
+{:message=>"with `NoSuchText`", :pass=>false}

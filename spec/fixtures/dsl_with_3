@@ -1,1 +1,1 @@
-{:message=>"File `Gemfile` should contain `/^gem.pec$/`", :pass=>true}
+{:message=>"with `/^gem.pec$/`", :pass=>true}

@@ -1,1 +1,1 @@
-{:message=>"File `Gemfile` should not contain `/^gem.pec$/`", :pass=>false}
+{:message=>"without `/^gem.pec$/`", :pass=>false}

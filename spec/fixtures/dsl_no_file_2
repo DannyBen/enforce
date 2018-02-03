@@ -1,1 +1,1 @@
-{:message=>"File `NoSuchFile` should not exist", :pass=>true}
+{:message=>"no file `NoSuchFile`", :pass=>true}

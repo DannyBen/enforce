@@ -144,6 +144,47 @@ describe DSL do
     end
   end
 
+  describe '#with_line' do
+    before do
+      subject.file 'Gemfile'
+    end
+
+    context "when the file includes the line" do
+      it "creates a passing result" do
+        subject.with_line 'source "https://rubygems.org"'
+        expect(subject.results.last.to_s).to match_fixture :dsl_with_line_1
+      end
+    end
+
+    context "when the file does not include the line" do
+      it "creates a failing result" do
+        subject.with_line 'https://rubygems.org'
+        expect(subject.results.last.to_s).to match_fixture :dsl_with_line_2
+      end
+    end
+  end
+
+  describe '#without_line' do
+    before do
+      subject.file 'Gemfile'
+    end
+
+    context "when the file includes the line" do
+      it "creates a failing result" do
+        subject.without_line 'source "https://rubygems.org"'
+        expect(subject.results.last.to_s).to match_fixture :dsl_without_line_1
+      end
+    end
+
+    context "when the file does not include the line" do
+      it "creates a passing result" do
+        subject.without_line 'https://rubygems.org'
+        expect(subject.results.last.to_s).to match_fixture :dsl_without_line_2
+      end
+    end
+  end
+
+
   describe '#passed_results' do
     before do
       subject.file 'Gemfile'
