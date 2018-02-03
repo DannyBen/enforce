@@ -29,7 +29,7 @@ gem 'enforce'
 Example
 --------------------------------------------------
 
-Soon
+[![asciicast](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm.png)](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm)
 
 
 Usage
