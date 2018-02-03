@@ -28,7 +28,7 @@ describe DSL do
   describe '#no_file' do
     context "when file exists" do
       it "creates a failing result" do
-        subject.no_file 'GemFile'
+        subject.no_file 'Gemfile'
         expect(subject.results.last.to_s).to match_fixture :dsl_no_file_1
       end
     end
