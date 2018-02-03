@@ -31,9 +31,65 @@ Example
 
 [![asciicast](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm.png)](https://asciinema.org/a/YqUrRMXdUXVGh7KqJpvy5DVBm)
 
+Also see the [example folder](/example).
+
 
 Usage
 --------------------------------------------------
 
-Soon
+1. Create a rules file containing any of the DSL commands below.
+2. Run `$ enforce <fules file name>` in the directory you want to test 
+   (without the `.rb` extension)
 
+Rules files are ruby scripts that are located either in the current directory
+or in your home directory, under `enforce` subdirectory (~/enforce/*.rb).
+
+If you wish to place your rules files elsewhere, set the `ENFORCE_HOME` 
+environment variable.
+
+DSL
+--------------------------------------------------
+
+### File Commands
+
+Verify that a file exists:
+
+```ruby
+file 'filename'
+```
+
+Verify that a file exists, and has (or doesn't have) some content:
+
+```ruby
+file 'filename' do
+  with 'any content'
+  with /any.regex/
+  without 'other content or regex'
+end
+```
+
+Verify that a file does not exist:
+
+```ruby
+no_file 'filename'
+```
+
+
+### Folder Commands
+
+Verify that a folder exists:
+
+```ruby
+folder 'dirname'
+```
+
+Verify that a folder exists, and run additional validations inside it:
+
+```ruby
+folder 'dirname' do
+  file 'file-inside-dirname'
+  file 'another-file' do
+    with 'some content'
+  end
+end
+```
