@@ -9,6 +9,7 @@ module Enforce
     end
 
     def say(message)
+      message.gsub!(/`([^`]+)`/, "%{blue}\\1%{reset}")
       puts "#{message}%{reset}" % colors
     end
   end

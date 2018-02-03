@@ -1,3 +1,3 @@
-[32mPASS[0m File 'Gemfile' should exist[0m
-[32mPASS[0m File 'Gemfile' should contain 'gemspec'[0m
+[32mPASS[0m File [34mGemfile[0m should exist[0m
+[32mPASS[0m File [34mGemfile[0m should contain [34mgemspec[0m[0m
 [32m2 rules, 0 failures[0m

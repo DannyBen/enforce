@@ -1,0 +1,1 @@
+{:message=>"File `Gemfile` should contain `/..gemspec../`", :pass=>false}

@@ -6,7 +6,7 @@ module Enforce
       pass = File.exist?(name)
       @last_file = name
 
-      add_result message: "File '#{name}' should exist", pass: pass
+      add_result message: "File `#{name}` should exist", pass: pass
 
       return unless pass
       
@@ -14,13 +14,13 @@ module Enforce
     end
 
     def no_file(name)
-      add_result message: "File '#{name}' should not exist", 
+      add_result message: "File `#{name}` should not exist", 
         pass: !File.exist?(name)
     end
 
     def folder(name)
       pass = Dir.exist?(name)
-      add_result message: "Folder '#{name}' should exist", pass: pass
+      add_result message: "Folder `#{name}` should exist", pass: pass
 
       return unless pass && block_given?
 
@@ -29,14 +29,16 @@ module Enforce
       end
     end
 
-    def with(string)
-      add_result message: "File '#{last_file}' should contain '#{string}'", 
-        pass: File.read(last_file).include?(string)
+    def with(content)
+      content_as_string = content.is_a?(String) ? content : content.inspect
+      add_result message: "File `#{last_file}` should contain `#{content_as_string}`", 
+        pass: File.read(last_file).match?(content)
     end
 
-    def without(string)
-      add_result message: "File '#{last_file}' should not contain '#{string}'", 
-        pass: !File.read(last_file).include?(string)
+    def without(content)
+      content_as_string = content.is_a?(String) ? content : content.inspect
+      add_result message: "File `#{last_file}` should not contain `#{content_as_string}`", 
+        pass: !File.read(last_file).match?(content)
     end
 
     def results

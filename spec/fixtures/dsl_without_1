@@ -1,1 +1,1 @@
-{:message=>"File 'Gemfile' should not contain 'gemspec'", :pass=>false}
+{:message=>"File `Gemfile` should not contain `gemspec`", :pass=>false}

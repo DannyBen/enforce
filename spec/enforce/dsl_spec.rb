@@ -72,17 +72,35 @@ describe DSL do
       subject.file 'Gemfile'
     end
 
-    context "when the file includes the content" do
-      it "creates a passing result" do
-        subject.with 'gemspec'
-        expect(subject.results.last.to_s).to match_fixture :dsl_with_1
+    context "with a string argument" do
+      context "when the file includes the string" do
+        it "creates a passing result" do
+          subject.with 'gemspec'
+          expect(subject.results.last.to_s).to match_fixture :dsl_with_1
+        end
+      end
+
+      context "when the file does not include the string" do
+        it "creates a failing result" do
+          subject.with 'NoSuchText'
+          expect(subject.results.last.to_s).to match_fixture :dsl_with_2
+        end
       end
     end
 
-    context "when the file does not include the content" do
-      it "creates a failing result" do
-        subject.with 'NoSuchText'
-        expect(subject.results.last.to_s).to match_fixture :dsl_with_2
+    context "with a regex argument" do
+      context "when the file includes the pattern" do
+        it "creates a passing result" do
+          subject.with(/^gem.pec$/)
+          expect(subject.results.last.to_s).to match_fixture :dsl_with_3
+        end
+      end
+
+      context "when the file does not include the pattern" do
+        it "creates a failing result" do
+          subject.with(/..gemspec../)
+          expect(subject.results.last.to_s).to match_fixture :dsl_with_4
+        end
       end
     end
   end
@@ -92,17 +110,36 @@ describe DSL do
       subject.file 'Gemfile'
     end
 
-    context "when the file includes the content" do
-      it "creates a failing result" do
-        subject.without 'gemspec'
-        expect(subject.results.last.to_s).to match_fixture :dsl_without_1
+    context "with a string argument" do
+
+      context "when the file includes the content" do
+        it "creates a failing result" do
+          subject.without 'gemspec'
+          expect(subject.results.last.to_s).to match_fixture :dsl_without_1
+        end
+      end
+
+      context "when the file does not include the content" do
+        it "creates a passing result" do
+          subject.without 'NoSuchText'
+          expect(subject.results.last.to_s).to match_fixture :dsl_without_2
+        end
       end
     end
 
-    context "when the file does not include the content" do
-      it "creates a passing result" do
-        subject.without 'NoSuchText'
-        expect(subject.results.last.to_s).to match_fixture :dsl_without_2
+    context "with a regex argument" do
+      context "when the file includes the pattern" do
+        it "creates a failing result" do
+          subject.without(/^gem.pec$/)
+          expect(subject.results.last.to_s).to match_fixture :dsl_without_3
+        end
+      end
+
+      context "when the file does not include the pattern" do
+        it "creates a passing result" do
+          subject.without(/..gemspec../)
+          expect(subject.results.last.to_s).to match_fixture :dsl_without_4
+        end
       end
     end
   end

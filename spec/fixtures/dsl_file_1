@@ -1,1 +1,1 @@
-{:message=>"File 'Gemfile' should exist", :pass=>true}
+{:message=>"File `Gemfile` should exist", :pass=>true}
