@@ -43,19 +43,19 @@ module Enforce
       @results ||= []
     end
 
-    protected
-
-    def add_result(result)
-      results.push result unless results.include? result
-      handle result
-    end
-
     def passed_results
       results.select { |result| result[:pass] }
     end
 
     def failed_results
       results.reject { |result| result[:pass] }
+    end
+
+    protected
+
+    def add_result(result)
+      results.push result unless results.include? result
+      handle result
     end
 
     def handle(result)

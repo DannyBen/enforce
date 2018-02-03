@@ -5,7 +5,7 @@ describe DSL do
     context "when file exists" do
       it "creates a passing result" do
         subject.file 'Gemfile'
-        expect(subject.results.last).to eq({ message: "File 'Gemfile' should exist", pass: true })
+        expect(subject.results.last.to_s).to match_fixture :dsl_file_1
       end
 
       context "when a block is given" do
@@ -20,7 +20,7 @@ describe DSL do
     context "when file does not exist" do
       it "creates a failing result" do
         subject.file 'NoSuchFile'
-        expect(subject.results.last).to eq({ message: "File 'NoSuchFile' should exist", pass: false })
+        expect(subject.results.last.to_s).to match_fixture :dsl_file_2
       end
     end
   end
@@ -29,16 +29,107 @@ describe DSL do
     context "when file exists" do
       it "creates a failing result" do
         subject.no_file 'GemFile'
-        expect(subject.results.last).to eq({ message: "File 'GemFile' should not exist", pass: false })
+        expect(subject.results.last.to_s).to match_fixture :dsl_no_file_1
       end
     end
 
     context "when file does not exist" do
       it "creates a passing result" do
         subject.no_file 'NoSuchFile'
-        expect(subject.results.last).to eq({ message: "File 'NoSuchFile' should not exist", pass: true })
+        expect(subject.results.last.to_s).to match_fixture :dsl_no_file_2
+      end
+    end
+  end
+
+  describe '#folder' do
+    context "when folder exists" do
+      it "creates a passing result" do
+        subject.folder 'spec'
+        expect(subject.results.last.to_s).to match_fixture :dsl_folder
       end
 
+      context "when a block is given" do
+        it "changes directory and yields the block" do
+          @yielded, @pwd = false, nil
+
+          subject.folder('spec') { @yielded = true; @pwd = Dir.pwd }
+          expect(@yielded).to be true
+          expect(@pwd).to match /spec$/
+        end
+      end
+    end
+
+    context "when folder does not exist" do
+      it "creates a failing result" do
+        subject.folder 'NoSuchFolder'
+        expect(subject.results.last.to_s).to match_fixture :dsl_folder_2
+      end
+    end    
+  end
+
+  describe '#with' do
+    before do
+      subject.file 'Gemfile'
+    end
+
+    context "when the file includes the content" do
+      it "creates a passing result" do
+        subject.with 'gemspec'
+        expect(subject.results.last.to_s).to match_fixture :dsl_with_1
+      end
+    end
+
+    context "when the file does not include the content" do
+      it "creates a failing result" do
+        subject.with 'NoSuchText'
+        expect(subject.results.last.to_s).to match_fixture :dsl_with_2
+      end
+    end
+  end
+
+  describe '#without' do
+    before do
+      subject.file 'Gemfile'
+    end
+
+    context "when the file includes the content" do
+      it "creates a failing result" do
+        subject.without 'gemspec'
+        expect(subject.results.last.to_s).to match_fixture :dsl_without_1
+      end
+    end
+
+    context "when the file does not include the content" do
+      it "creates a passing result" do
+        subject.without 'NoSuchText'
+        expect(subject.results.last.to_s).to match_fixture :dsl_without_2
+      end
+    end
+  end
+
+  describe '#passed_results' do
+    before do
+      subject.file 'Gemfile'
+      subject.file 'README.md'
+      subject.file 'NoSuchFile'
+      expect(subject.results.count).to eq 3
+    end
+
+    it "returns an array of passed results" do
+      expect(subject.passed_results.count).to eq 2
+    end
+  end
+
+  describe '#failed_results' do
+    before do
+      subject.file 'Gemfile'
+      subject.file 'NoSuchFile'
+      subject.file 'NoSuchFileEither'
+      expect(subject.results.count).to eq 3
+    end
+
+    it "returns an array of passed results" do
+      expect(subject.failed_results.count).to eq 2
     end
   end
 
