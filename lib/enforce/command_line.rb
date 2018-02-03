@@ -10,7 +10,6 @@ module Enforce
       file = find_file argv[0]
       return show_file_not_found unless file
 
-
       handler.execute file
       handler.failed? ? 1 : 0
     end
@@ -51,5 +50,3 @@ module Enforce
 
   end
 end
-
-

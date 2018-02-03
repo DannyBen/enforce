@@ -9,13 +9,12 @@ module Enforce
       add_result message: "File `#{name}` should exist", pass: pass
 
       return unless pass
-      
       yield if block_given?
     end
 
     def no_file(name)
-      add_result message: "File `#{name}` should not exist", 
-        pass: !File.exist?(name)
+      pass = !File.exist?(name)
+      add_result message: "File `#{name}` should not exist", pass: pass
     end
 
     def folder(name)
