@@ -40,6 +40,17 @@ module Enforce
         pass: !File.read(last_file).match?(content)
     end
 
+    def with_line(content)
+      add_result message: "File `#{last_file}` should contain line `#{content}`", 
+        pass: File.readlines(last_file).map(&:strip).include?(content)
+    end
+
+    def without_line(content)
+      add_result message: "File `#{last_file}` should not contain line `#{content}`", 
+        pass: !File.readlines(last_file).map(&:strip).include?(content)
+    end
+
+
     def results
       @results ||= []
     end

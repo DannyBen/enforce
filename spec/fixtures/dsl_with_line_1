@@ -1,0 +1,1 @@
+{:message=>"File `Gemfile` should contain line `source \"https://rubygems.org\"`", :pass=>true}

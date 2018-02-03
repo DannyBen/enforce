@@ -65,6 +65,8 @@ file 'filename' do
   with 'any content'
   with /any.regex/
   without 'other content or regex'
+  with_line 'line to match, leading and trailing spaces are ignored'
+  without_line 'line to make sure is not in the file'
 end
 ```
 
