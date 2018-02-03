@@ -100,7 +100,7 @@ Verify that a folder exists, and run additional validations inside it:
 folder 'dirname' do
   file 'file-inside-dirname'
   file 'another-file' do
-    with 'some content'
+    text 'some content'
   end
 end
 ```
