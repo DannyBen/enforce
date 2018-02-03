@@ -1,1 +1,1 @@
-{:message=>"File `Gemfile` should contain `gemspec`", :pass=>true}
+{:message=>"with `gemspec`", :pass=>true}

@@ -1,1 +1,1 @@
-{:message=>"Folder `NoSuchFolder` should exist", :pass=>false}
+{:message=>"folder `NoSuchFolder`", :pass=>false}

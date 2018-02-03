@@ -20,7 +20,7 @@ module Enforce
 
     def handle(message:, pass:)
       status = pass ? "%{green}PASS%{reset}" : "%{red}FAIL%{reset}"
-      say "#{status} #{message}"
+      say "#{status}  #{message}"
     end
   end
 end
