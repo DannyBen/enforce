@@ -1,5 +1,5 @@
 
 
 file 'Gemfile' do
-  with 'gemspec'  
+  text 'gemspec'  
 end
