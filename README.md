@@ -1,9 +1,10 @@
 Enforce - A DSL for verifying file/folder content
 ==================================================
 
-[![Gem](https://img.shields.io/gem/v/enforce.svg?style=flat-square)](https://rubygems.org/gems/enforce)
-[![Build](https://img.shields.io/travis/DannyBen/enforce/master.svg?style=flat-square)](https://travis-ci.com/DannyBen/enforce)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/enforce.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/enforce)
+[![Gem Version](https://badge.fury.io/rb/enforce.svg)](https://badge.fury.io/rb/enforce)
+[![Build Status](https://travis-ci.com/DannyBen/enforce.svg?branch=master)](https://travis-ci.com/DannyBen/enforce)
+[![Maintainability](https://api.codeclimate.com/v1/badges/797b00ba3f6291f7b989/maintainability)](https://codeclimate.com/github/DannyBen/enforce/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/797b00ba3f6291f7b989/test_coverage)](https://codeclimate.com/github/DannyBen/enforce/test_coverage)
 
 ---
 
