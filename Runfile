@@ -1,5 +1,6 @@
 require "runfile-tasks"
 require 'fileutils'
+require_relative 'lib/enforce'
 
 title   "Enforce Developer Toolbelt"
 summary "Runfile tasks for building the Enforce gem"
