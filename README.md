@@ -37,7 +37,7 @@ Usage
 --------------------------------------------------
 
 1. Create a rules file containing any of the DSL commands below.
-2. Run `$ enforce <fules file name>` in the directory you want to test 
+2. Run `$ enforce <rules file name>` in the directory you want to test 
    (without the `.rb` extension)
 
 Rules files are ruby scripts that are located either in the current directory
