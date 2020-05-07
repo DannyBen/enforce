@@ -79,7 +79,7 @@ module Enforce
 
     def add_result(result)
       results.push result unless results.include? result
-      handle result
+      handle **result
     end
 
     def handle(result)
