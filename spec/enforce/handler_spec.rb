@@ -5,13 +5,13 @@ describe Handler do
     let(:script) { 'spec/scripts/basic.rb' }
 
     it "runs the script" do
-      expect{ subject.execute script }.to output_fixture :handler_execute
+      expect{ subject.execute script }.to output_approval :handler_execute
     end
   end
 
   describe '#handle' do
     it "prints a message" do
-      expect{ subject.handle message: 'hi', pass: true }.to output_fixture :handler_handle
+      expect{ subject.handle message: 'hi', pass: true }.to output_approval :handler_handle
     end
   end
 
@@ -20,13 +20,13 @@ describe Handler do
 
     describe '#execute' do
       it "shows the failure count" do
-        expect{ subject.execute script }.to output_fixture :handler_failure
+        expect{ subject.execute script }.to output_approval :handler_failure
       end
     end
 
     describe '#failed' do
       before do
-        expect{ subject.execute script }.to output_fixture :handler_failure
+        expect{ subject.execute script }.to output_approval :handler_failure
       end
         
       it "returns the count of failed results" do
@@ -36,7 +36,7 @@ describe Handler do
 
     describe '#failed?' do
       before do
-        expect{ subject.execute script }.to output_fixture :handler_failure
+        expect{ subject.execute script }.to output_approval :handler_failure
       end
         
       it "returns true" do
