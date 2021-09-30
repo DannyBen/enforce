@@ -11,5 +11,5 @@ RunfileTasks::Testing.rspec
 
 help   "Run IRB console with context"
 action :console, :c do
-  run! "bin/console"
+  exec "bin/console"
 end
