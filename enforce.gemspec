@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables = ["enforce"]
   s.homepage    = 'https://github.com/DannyBen/enforce'
   s.license     = 'MIT'
-  s.required_ruby_version = ">= 2.4.0"
+  s.required_ruby_version = ">= 2.7.0"
 
   s.add_runtime_dependency 'pretty_trace', '~> 0.2'
 end

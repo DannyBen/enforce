@@ -35,7 +35,7 @@ module Enforce
 
     def show_usage
       puts "Enforce #{Enforce::VERSION}"
-      puts "  Usage: enforce RULES_FILE"
+      puts "  Usage: enforce RULES_FILE (without .rb extension)"
       0
     end
 

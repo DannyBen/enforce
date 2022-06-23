@@ -1,5 +1,4 @@
-Enforce - A DSL for verifying file/folder content
-==================================================
+# Enforce - A DSL for verifying file/folder content
 
 [![Gem Version](https://badge.fury.io/rb/enforce.svg)](https://badge.fury.io/rb/enforce)
 [![Build Status](https://github.com/DannyBen/enforce/workflows/Test/badge.svg)](https://github.com/DannyBen/enforce/actions?query=workflow%3ATest)
@@ -12,42 +11,32 @@ a folder, and the contents of these files.
 
 ---
 
-Install
---------------------------------------------------
+## Install
 
 ```
 $ gem install enforce
 ```
 
-Or with bundler:
-
-```ruby
-gem 'enforce'
-```
-
-Example
---------------------------------------------------
+## Example
 
 [![asciicast](https://asciinema.org/a/bGvwdnrAzrUeHeGvY4UYfIdFZ.png)](https://asciinema.org/a/bGvwdnrAzrUeHeGvY4UYfIdFZ)
 
 Also see the [example folder](/example).
 
 
-Usage
---------------------------------------------------
+## Usage
 
 1. Create a rules file containing any of the DSL commands below.
 2. Run `$ enforce <rules file name>` in the directory you want to test 
    (without the `.rb` extension)
 
 Rules files are ruby scripts that are located either in the current directory
-or in your home directory, under `enforce` subdirectory (~/enforce/*.rb).
+or in your home directory, under `enforce` subdirectory (`~/enforce/*.rb`).
 
 If you wish to place your rules files elsewhere, set the `ENFORCE_HOME` 
 environment variable.
 
-DSL
---------------------------------------------------
+## DSL
 
 ### File Commands
 
