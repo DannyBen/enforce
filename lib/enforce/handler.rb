@@ -3,8 +3,8 @@ module Enforce
     include Colors
 
     def execute(file)
-      eval File.read file
-      color = failed? ? "%{red}" : "%{green}"
+      eval File.read(file)
+      color = failed? ? '%{red}' : '%{green}'
       say "#{color}#{results.count} rules, #{failed} failures"
     end
 
@@ -13,11 +13,11 @@ module Enforce
     end
 
     def failed?
-      failed_results.count > 0
+      failed_results.count.positive?
     end
 
     def handle(message:, pass:)
-      status = pass ? "%{green}PASS%{reset}" : "%{red}FAIL%{reset}"
+      status = pass ? '%{green}PASS%{reset}' : '%{red}FAIL%{reset}'
       say "#{status}  #{message}"
     end
   end

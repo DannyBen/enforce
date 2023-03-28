@@ -1,8 +1,7 @@
 module Enforce
   class CommandLine
     class << self
-
-      def execute(argv=[])
+      def execute(argv = [])
         return show_usage if argv.empty?
 
         file = find_file argv[0]
@@ -12,12 +11,12 @@ module Enforce
         handler.failed? ? 1 : 0
       end
 
-      private
+    private
 
       def find_file(basename)
         candidates = [
           "#{basename}.rb",
-          "#{home_dir}/#{basename}.rb"
+          "#{home_dir}/#{basename}.rb",
         ]
 
         candidates.each do |candidate|
@@ -33,19 +32,18 @@ module Enforce
 
       def show_usage
         puts "Enforce #{Enforce::VERSION}"
-        puts "  Usage: enforce RULES_FILE (without .rb extension)"
+        puts '  Usage: enforce RULES_FILE (without .rb extension)'
         0
       end
 
       def show_file_not_found
-        puts "Error: Could not find rules file"
+        puts 'Error: Could not find rules file'
         1
       end
 
       def home_dir
         ENV['ENFORCE_HOME'] ||= "#{Dir.home}/enforce"
       end
-
     end
   end
 end

@@ -1,5 +1,3 @@
-
-
 file 'Gemfile' do
-  text 'gemspec'  
+  text 'gemspec'
 end
