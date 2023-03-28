@@ -9,6 +9,7 @@ module Enforce
       add_result message: "file `#{name}`", pass: pass
 
       return unless pass
+
       yield if block_given?
     end
 
@@ -17,15 +18,13 @@ module Enforce
       add_result message: "no file `#{name}`", pass: pass
     end
 
-    def folder(name)
+    def folder(name, &block)
       pass = Dir.exist?(name)
       add_result message: "folder `#{name}`", pass: pass
 
-      return unless pass && block_given?
+      return unless pass && block
 
-      Dir.chdir name do
-        yield
-      end
+      Dir.chdir name, &block
     end
 
     def no_folder(name)
@@ -75,11 +74,11 @@ module Enforce
       results.reject { |result| result[:pass] }
     end
 
-    protected
+  protected
 
     def add_result(result)
       results.push result unless results.include? result
-      handle **result
+      handle(**result)
     end
 
     def handle(result)
