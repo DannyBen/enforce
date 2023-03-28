@@ -1,12 +1,10 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'date'
 require 'enforce/version'
 
 Gem::Specification.new do |s|
   s.name        = 'enforce'
   s.version     = Enforce::VERSION
-  s.date        = Date.today.to_s
   s.summary     = "DSL for enforcing folder and file contents"
   s.description = "Define rules for folder and file contents and enforce them from the command line"
   s.authors     = ["Danny Ben Shitrit"]

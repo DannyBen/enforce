@@ -5,6 +5,6 @@ require 'pretty_trace/enable-trim'
 
 PrettyTrace.filter [/gems/, /bin\/enforce/]
 
-exitcode = Enforce::CommandLine.instance.execute ARGV
+exitcode = Enforce::CommandLine.execute ARGV
 exit exitcode
 

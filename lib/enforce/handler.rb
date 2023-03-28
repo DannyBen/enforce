@@ -1,5 +1,3 @@
-require 'singleton'
-
 module Enforce
   class Handler < DSL
     include Colors

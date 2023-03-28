@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CommandLine do
-  subject { CommandLine.instance }
+  subject { described_class }
 
   describe '#execute' do
     context "without arguments" do
