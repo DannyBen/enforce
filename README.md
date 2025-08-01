@@ -1,11 +1,5 @@
 # Enforce - A DSL for verifying file/folder content
 
-[![Gem Version](https://badge.fury.io/rb/enforce.svg)](https://badge.fury.io/rb/enforce)
-[![Build Status](https://github.com/DannyBen/enforce/workflows/Test/badge.svg)](https://github.com/DannyBen/enforce/actions?query=workflow%3ATest)
-[![Maintainability](https://api.codeclimate.com/v1/badges/797b00ba3f6291f7b989/maintainability)](https://codeclimate.com/github/DannyBen/enforce/maintainability)
-
----
-
 Create globally available DSL scripts to verify the existence of files in
 a folder, and the contents of these files.
 
