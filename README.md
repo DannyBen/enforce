@@ -1,5 +1,7 @@
 # Enforce - A DSL for verifying file/folder content
 
+![repocard](https://repocard.dannyben.com/svg/enforce.svg)
+
 Create globally available DSL scripts to verify the existence of files in
 a folder, and the contents of these files.
 
